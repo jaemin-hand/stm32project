@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <stdio.h>
+#include "fnd_controller.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -93,32 +94,37 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_SPI1_Init();
-  MX_USART1_UART_Init();
+//  MX_GPIO_Init();
+//  MX_SPI1_Init();
+//  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-//  volatile unsigned int * reg2 = 0x40011010;
-//  *reg2 |= 16;
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  char data[2] = {'a','b'};
-  char senddata[20] = "hello world\r\n";
-  int i = 0;
-  float f = 0.1;
+//  char data[2] = {'a','b'};
+//  char senddata[20] = "hello world\r\n";
+//  int i = 0;
+//  float f = 0.1;
   while (1)
   {
+	  for(int i = 0; i<=99;i++){
+		  digit2(i,0b0001,50); // send counter 0-99 with delay 50 cicles int 1st and 2nd view ports
+	  }
+	  HAL_Delay(500);
+
 //	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
 //	  HAL_Delay(1000);
 //	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
 //	  HAL_Delay(1000);
-	  if(!HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)) { // ë²„íŠ¼?„ ?ˆ„ë¥´ë©´ led ì¼œì?ê³?
-		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
-	  } else { // ë²„íŠ¼?„ ?–¼ë©? led êº¼ì?ê³?
-		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
-	  }
-	  HAL_Delay(500);
+
+//	  if(!HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)) { // if push button -> led on
+//		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
+//	  } else { // if pull button -> led off
+//		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
+//	  }
+//	  HAL_Delay(500);
 
 //	  f++;
 //	  printf("%f.1\r\n",f);
@@ -275,25 +281,14 @@ static void MX_GPIO_Init(void)
 /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_13, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIO_TEST_GPIO_Port, GPIO_TEST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin : PC13 */
-  GPIO_InitStruct.Pin = GPIO_PIN_13;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+  HAL_GPIO_WritePin(GPIOB, FND_RCLK_Pin|FND_DIO_Pin|FND_SCLK_Pin|PB6_LED1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : GPIO_SW_Pin */
   GPIO_InitStruct.Pin = GPIO_SW_Pin;
@@ -313,6 +308,13 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(PB0_TEMP_SET_UP_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : FND_RCLK_Pin FND_DIO_Pin FND_SCLK_Pin */
+  GPIO_InitStruct.Pin = FND_RCLK_Pin|FND_DIO_Pin|FND_SCLK_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB6_LED1_Pin */
   GPIO_InitStruct.Pin = PB6_LED1_Pin;
