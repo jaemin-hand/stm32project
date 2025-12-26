@@ -109,12 +109,16 @@ int main(void)
   float f = 0.1;
   while (1)
   {
-	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
-	  HAL_Delay(1000);
-	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
-	  HAL_Delay(1000);
-
-
+//	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
+//	  HAL_Delay(1000);
+//	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
+//	  HAL_Delay(1000);
+	  if(!HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)) { // Î≤ÑÌäº?ùÑ ?àÑÎ•¥Î©¥ led ÏºúÏ?Í≥?
+		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
+	  } else { // Î≤ÑÌäº?ùÑ ?ñºÎ©? led Í∫ºÏ?Í≥?
+		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
+	  }
+	  HAL_Delay(500);
 
 //	  f++;
 //	  printf("%f.1\r\n",f);
@@ -303,6 +307,12 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
   HAL_GPIO_Init(GPIO_TEST_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB0_TEMP_SET_UP_Pin */
+  GPIO_InitStruct.Pin = PB0_TEMP_SET_UP_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(PB0_TEMP_SET_UP_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pin : PB6_LED1_Pin */
   GPIO_InitStruct.Pin = PB6_LED1_Pin;
