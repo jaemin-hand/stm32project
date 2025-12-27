@@ -109,10 +109,21 @@ int main(void)
 //  float f = 0.1;
   while (1)
   {
-	  for(int i = 0; i<=99;i++){
-		  digit2(i,0b0001,50); // send counter 0-99 with delay 50 cicles int 1st and 2nd view ports
-	  }
-	  HAL_Delay(500);
+	  send(0xF8);
+	  send(0b0001);
+	  HAL_GPIO_WritePin(FND_RCLK_GPIO_Port, FND_RCLK_Pin,LOW);
+	  HAL_GPIO_WritePin(FND_RCLK_GPIO_Port, FND_RCLK_Pin,HIGH);
+	  HAL_Delay(1000);
+
+//	  for(int i = 0; i<=99;i++){
+//		  digit2(i,0b0001,50); // send counter 0-99 with delay 50 cicles int 1st and 2nd view ports
+//	  }
+//	  for(int i = 0; i <=100; i++) {
+//		  digit4showZero_replay(i,50);
+//	  }
+//	  for(int i =0; i <=9999;i++){
+//		  digit4_replay(i,50);
+//	  }
 
 //	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
 //	  HAL_Delay(1000);
