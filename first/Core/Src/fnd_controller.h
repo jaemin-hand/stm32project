@@ -32,6 +32,7 @@ void digit4showZero_replay(int n, int replay);
 
 void digit4showZero(int n);
 
+void digit4_temper(int n,int replay);
 
 void digit2(int n, int port, int replay);
 

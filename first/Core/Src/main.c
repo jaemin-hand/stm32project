@@ -94,9 +94,9 @@ int main(void)
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
-//  MX_GPIO_Init();
-//  MX_SPI1_Init();
-//  MX_USART1_UART_Init();
+  MX_GPIO_Init();
+  MX_SPI1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -110,9 +110,6 @@ int main(void)
   while (1)
   {
 	  send(0xF8);
-	  send(0b0001);
-	  HAL_GPIO_WritePin(FND_RCLK_GPIO_Port, FND_RCLK_Pin,LOW);
-	  HAL_GPIO_WritePin(FND_RCLK_GPIO_Port, FND_RCLK_Pin,HIGH);
 	  HAL_Delay(1000);
 
 //	  for(int i = 0; i<=99;i++){
@@ -121,9 +118,9 @@ int main(void)
 //	  for(int i = 0; i <=100; i++) {
 //		  digit4showZero_replay(i,50);
 //	  }
-//	  for(int i =0; i <=9999;i++){
-//		  digit4_replay(i,50);
-//	  }
+	  for(int i =0; i <=9999;i++){
+		  digit4_temper(i,50);
+	  }
 
 //	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
 //	  HAL_Delay(1000);
@@ -299,7 +296,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIO_TEST_GPIO_Port, GPIO_TEST_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, FND_RCLK_Pin|FND_DIO_Pin|FND_SCLK_Pin|PB6_LED1_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOB, FND_SCLK_Pin|FND_RCLK_Pin|FND_DIO_Pin|PB6_LED1_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : GPIO_SW_Pin */
   GPIO_InitStruct.Pin = GPIO_SW_Pin;
@@ -320,8 +317,8 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(PB0_TEMP_SET_UP_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : FND_RCLK_Pin FND_DIO_Pin FND_SCLK_Pin */
-  GPIO_InitStruct.Pin = FND_RCLK_Pin|FND_DIO_Pin|FND_SCLK_Pin;
+  /*Configure GPIO pins : FND_SCLK_Pin FND_RCLK_Pin FND_DIO_Pin */
+  GPIO_InitStruct.Pin = FND_SCLK_Pin|FND_RCLK_Pin|FND_DIO_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
