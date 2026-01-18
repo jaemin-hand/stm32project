@@ -109,8 +109,6 @@ int main(void)
 //  float f = 0.1;
   while (1)
   {
-	  send(0xF8);
-	  HAL_Delay(1000);
 
 //	  for(int i = 0; i<=99;i++){
 //		  digit2(i,0b0001,50); // send counter 0-99 with delay 50 cicles int 1st and 2nd view ports
