@@ -98,69 +98,18 @@ int main(void)
   MX_SPI1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
+  init_fnd();
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-//  char data[2] = {'a','b'};
-//  char senddata[20] = "hello world\r\n";
-//  int i = 0;
-//  float f = 0.1;
+
   while (1)
   {
-
-//	  for(int i = 0; i<=99;i++){
-//		  digit2(i,0b0001,50); // send counter 0-99 with delay 50 cicles int 1st and 2nd view ports
-//	  }
-//	  for(int i = 0; i <=100; i++) {
-//		  digit4showZero_replay(i,50);
-//	  }
-	  for(int i =0; i <=9999;i++){
-		  digit4_temper(i,50);
+	  for(int i =0;i<10000;i++){
+		  digit4_temper(i, 50);
 	  }
 
-//	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
-//	  HAL_Delay(1000);
-//	  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
-//	  HAL_Delay(1000);
-
-//	  if(!HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)) { // if push button -> led on
-//		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 0);
-//	  } else { // if pull button -> led off
-//		  HAL_GPIO_WritePin(PB6_LED1_GPIO_Port, PB6_LED1_Pin, 1);
-//	  }
-//	  HAL_Delay(500);
-
-//	  f++;
-//	  printf("%f.1\r\n",f);
-//	  HAL_Delay(1000);
-//	  i++;
-//	  printf("%d\r\n",i);
-//	  HAL_Delay(1000);
-//	  printf("hello world!!!!\r\n");
-//	  HAL_Delay(10000);
-//	  HAL_UART_Transmit(&huart1, senddata, strlen(senddata), 1000);
-//	  HAL_Delay(1000);
-
-//	  *reg2 = 0x2000;
-//	  HAL_Delay(100);
-//	  *reg2 = (0x200 << 16);
-//	  HAL_Delay(100);
-//	  HAL_SPI_Transmit(&hspi1, data, 2, 100);
-//	  HAL_Delay(5000);
-
-//	  HAL_GPIO_WritePin(GPIO_TEST_GPIO_Port, GPIO_TEST_Pin, 1);
-//	  HAL_Delay(1);
-//	  HAL_GPIO_WritePin(GPIO_TEST_GPIO_Port, GPIO_TEST_Pin, 0);
-//	  HAL_Delay(1);
-
-//	  if(!HAL_GPIO_ReadPin(GPIO_SW_GPIO_Port, GPIO_SW_Pin)) {
-//		  HAL_GPIO_WritePin(GPIO_LED_GPIO_Port, GPIO_LED_Pin, 0);
-//	  } else {
-//		  HAL_GPIO_WritePin(GPIO_LED_GPIO_Port, GPIO_LED_Pin, 1);
-//	  }
-//	  HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
