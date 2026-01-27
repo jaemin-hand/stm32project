@@ -9,7 +9,12 @@
 
 uint8_t _LED_0F[29];
 
-void init_fnd() {
+static SPI_HandleTypeDef *mhspi;
+
+
+
+void init_fnd(SPI_HandleTypeDef *hspi) {
+		mhspi = hspi;
 	  _LED_0F[0] = 0xC0; //0
 	  _LED_0F[1] = 0xF9; //1
 	  _LED_0F[2] = 0xA4; //2
@@ -42,20 +47,22 @@ void init_fnd() {
 }
 
 void send(uint8_t X) { // 8비트(1바이트)라는 뜻, u는 unsigned integer
-	for (int i = 8; i >= 1; i--)
-	{
-	  if (X & 0x80)
-	  {
-	    HAL_GPIO_WritePin(FND_DIO_GPIO_Port, FND_DIO_Pin, HIGH);
-	  }
-	  else
-	  {
-		  HAL_GPIO_WritePin(FND_DIO_GPIO_Port, FND_DIO_Pin, LOW);
-	  }
-	  X <<= 1;
-	  HAL_GPIO_WritePin(FND_SCLK_GPIO_Port, FND_SCLK_Pin, LOW);
-	  HAL_GPIO_WritePin(FND_SCLK_GPIO_Port, FND_SCLK_Pin, HIGH);
-	}
+//	for (int i = 8; i >= 1; i--)
+//	{
+//	  if (X & 0x80)
+//	  {
+//	    HAL_GPIO_WritePin(FND_DIO_GPIO_Port, FND_DIO_Pin, HIGH);
+//	  }
+//	  else
+//	  {
+//		  HAL_GPIO_WritePin(FND_DIO_GPIO_Port, FND_DIO_Pin, LOW);
+//	  }
+//	  X <<= 1;
+//	  HAL_GPIO_WritePin(FND_SCLK_GPIO_Port, FND_SCLK_Pin, LOW);
+//	  HAL_GPIO_WritePin(FND_SCLK_GPIO_Port, FND_SCLK_Pin, HIGH);
+//	}
+
+	HAL_SPI_Transmit(mhspi, &X, 1, 100);
 }
 
 void send_port(uint8_t X, uint8_t port)

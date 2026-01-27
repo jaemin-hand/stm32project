@@ -42,6 +42,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 SPI_HandleTypeDef hspi1;
+SPI_HandleTypeDef hspi2;
 
 UART_HandleTypeDef huart1;
 
@@ -97,8 +98,11 @@ int main(void)
   MX_GPIO_Init();
   MX_SPI1_Init();
   MX_USART1_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
-  init_fnd();
+
+  init_fnd(&hspi1);
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
