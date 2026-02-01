@@ -82,12 +82,30 @@ void digit4_temper(int n, int replay)
   n3 = (int) ((n % 1000)) / 100;
   n4 = (int) ((n % 10000)) / 1000;
 
- for(int i = 0; i<=replay; i++){
-	 send_port(_LED_0F[n1], 0b0001);
+  // replay 횟수만큼 반복
+  for(int i = 0; i <= replay; i++){
+
+     // 1. 첫 번째 자리 켜기
+     send_port(_LED_0F[n1], 0b0001);
+     HAL_Delay(2); // <--- [중요] 2ms 동안 보여주기
+
+     // 2. 두 번째 자리 켜기 (소수점 포함)
      send_port(_LED_0F[n2] & 0x7F, 0b0010);
-    if(n>99)send_port(_LED_0F[n3], 0b0100);
-    if(n>999)send_port(_LED_0F[n4], 0b1000);
- }
+     HAL_Delay(2); // <--- [중요] 2ms 동안 보여주기
+
+     // 3. 세 번째 자리 (조건부)
+     if(n > 99) {
+         send_port(_LED_0F[n3], 0b0100);
+         HAL_Delay(2); // <--- [중요]
+     }
+
+     // 4. 네 번째 자리 (조건부)
+     if(n > 999) {
+         send_port(_LED_0F[n4], 0b1000);
+         HAL_Delay(2); // <--- [중요]
+     }
+  }
+  send_port(0x00, 0x00);
 }
 
 void digit4_replay(int n, int replay)

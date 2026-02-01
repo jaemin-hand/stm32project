@@ -19,6 +19,7 @@
 #include "onewire.h"
 #include "ds18b20Config.h"
 #include "tim.h"
+extern TIM_HandleTypeDef htim2;
 
 void ONEWIRE_DELAY(uint16_t time_us)
 {
