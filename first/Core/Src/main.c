@@ -106,11 +106,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
   while (1)
   {
+//	  for(int i =0; i <=9999;i++){
+//	  		  digit4_temper(i,50);
+//	  	  }
 	  Ds18b20_ManualConvert();
-	  digit4_temper((int)(ds18b20[0].Temperature * 10), 50);
+	  digit4_temper((int)(ds18b20[0].Temperature * 10), 100);
 
     /* USER CODE END WHILE */
 

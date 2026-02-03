@@ -208,7 +208,6 @@ void TIM2_IRQHandler(void)
 	m_time++;
 	if(m_time > 10) {
 		if(is_init()) {
-			Ds18b20_ManualConvert();
 			m_time = 0;
 		}
 
