@@ -1,7 +1,7 @@
 
 
 #include "ds18b20.h"
-
+#include "fnd_controller.h"
 
 //###################################################################################
 Ds18b20Sensor_t	ds18b20[_DS18B20_MAX_SENSORS];
@@ -66,9 +66,10 @@ bool	Ds18b20_Init(void)
 }
 #endif
 //###########################################################################################
-bool	Ds18b20_ManualConvert(void)
+bool Ds18b20_ManualConvert(void)
 {
 	#if (_DS18B20_USE_FREERTOS==1)
+	// (FreeRTOS 부분은 안 쓰시니 건너뜁니다)
 	Ds18b20StartConvert=1;
 	while(Ds18b20StartConvert==1)
 		Ds18b20Delay(10);
@@ -77,21 +78,30 @@ bool	Ds18b20_ManualConvert(void)
 	else
 		return true;	
 	#else	
+
+
 	Ds18b20Timeout=_DS18B20_CONVERT_TIMEOUT_MS/10;
 	DS18B20_StartAll(&OneWire);
-	Ds18b20Delay(100);
+
+
+	digit4_temper((int)(ds18b20[0].Temperature * 10), 60);
+
 	while (!DS18B20_AllDone(&OneWire))
 	{
-		Ds18b20Delay(10);  
+		digit4_temper((int)(ds18b20[0].Temperature * 10), 5);
+
 		Ds18b20Timeout-=1;
 		if(Ds18b20Timeout==0)
 			break;
 	}	
+
+
 	if(Ds18b20Timeout>0)
 	{
 		for (uint8_t i = 0; i < TempSensorCount; i++)
 		{
-			Ds18b20Delay(100);
+			digit4_temper((int)(ds18b20[0].Temperature * 10), 12);
+
 			ds18b20[i].DataIsValid = DS18B20_Read(&OneWire, ds18b20[i].Address, &ds18b20[i].Temperature);
 		}
 	}

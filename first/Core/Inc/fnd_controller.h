@@ -7,7 +7,8 @@
 
 #ifndef SRC_FND_CONTROLLER_H_
 #define SRC_FND_CONTROLLER_H_
-
+#ifndef INC_FND_CONTROLLER_H_
+#define INC_FND_CONTROLLER_H_
 #include "main.h"
 
 
@@ -19,6 +20,10 @@
 
 void init_fnd(SPI_HandleTypeDef *hspi);
 void send(uint8_t X);
+
+void init_fnd(SPI_HandleTypeDef *hspi);
+void fnd_update_isr(void);      // 타이머가 부를 함수
+void set_fnd_temp(int temp);
 
 void send_port(uint8_t X, uint8_t port);
 
@@ -40,3 +45,4 @@ void digit2_port(int n, int port);
 
 
 #endif /* SRC_FND_CONTROLLER_H_ */
+#endif /* INC_FND_CONTROLLER_H_ */

@@ -94,30 +94,25 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_USART1_UART_Init();
   MX_SPI2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_Base_Start_IT(&htim2);
   init_fnd(&hspi2);
   Ds18b20_Init();
-
+//  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-//	  for(int i =0; i <=9999;i++){
-//	  		  digit4_temper(i,50);
-//	  	  }
+    {
 	  Ds18b20_ManualConvert();
-	  digit4_temper((int)(ds18b20[0].Temperature * 10), 100);
+	  digit4_temper((int)(ds18b20[0].Temperature * 10), 1);
+	  /* USER CODE END WHILE */
 
-    /* USER CODE END WHILE */
+	  /* USER CODE BEGIN 3 */
+    }
 
-    /* USER CODE BEGIN 3 */
-  }
   /* USER CODE END 3 */
 }
 
