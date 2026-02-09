@@ -69,7 +69,6 @@ bool	Ds18b20_Init(void)
 bool Ds18b20_ManualConvert(void)
 {
 	#if (_DS18B20_USE_FREERTOS==1)
-	// (FreeRTOS 부분은 안 쓰시니 건너뜁니다)
 	Ds18b20StartConvert=1;
 	while(Ds18b20StartConvert==1)
 		Ds18b20Delay(10);
@@ -347,7 +346,7 @@ uint8_t DS18B20_GetResolution(OneWire_t* OneWire, uint8_t *ROM)
 uint8_t DS18B20_SetResolution(OneWire_t* OneWire, uint8_t *ROM, DS18B20_Resolution_t resolution) 
 {
 	uint8_t th, tl, conf;
-	if (!DS18B20_Is(ROM)) 
+	if (!DS18B20_Is(ROM))
 		return 0;
 	
 	
