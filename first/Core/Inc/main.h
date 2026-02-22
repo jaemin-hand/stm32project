@@ -69,6 +69,8 @@ void Error_Handler(void);
 #define FND_RCLK_GPIO_Port GPIOB
 #define FND_DIO_Pin GPIO_PIN_15
 #define FND_DIO_GPIO_Port GPIOB
+#define PB5_RELAY_ON_OFF_CTRL_Pin GPIO_PIN_5
+#define PB5_RELAY_ON_OFF_CTRL_GPIO_Port GPIOB
 #define PB6_LED1_Pin GPIO_PIN_6
 #define PB6_LED1_GPIO_Port GPIOB
 

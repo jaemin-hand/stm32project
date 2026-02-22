@@ -94,6 +94,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_USART1_UART_Init();
   MX_SPI2_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
@@ -106,11 +107,13 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
     {
-	  Ds18b20_ManualConvert();
-	  digit4_temper((int)(ds18b20[0].Temperature * 10), 1);
-	  /* USER CODE END WHILE */
+//	  Ds18b20_ManualConvert();
+//	  digit4_temper((int)(ds18b20[0].Temperature * 10), 1);
+	  HAL_GPIO_TogglePin(PB5_RELAY_ON_OFF_CTRL_GPIO_Port, GPIO_PIN_5);
+	  HAL_Delay(2000);
+    /* USER CODE END WHILE */
 
-	  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
     }
 
   /* USER CODE END 3 */
