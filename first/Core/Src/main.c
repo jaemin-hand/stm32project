@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include "fnd_controller.h"
 #include "ds18b20.h"
+#include "heaterController.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,10 +108,15 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
     {
-//	  Ds18b20_ManualConvert();
+	  Ds18b20_ManualConvert(); // 온도 정보 가져오고
 //	  digit4_temper((int)(ds18b20[0].Temperature * 10), 1);
-	  HAL_GPIO_TogglePin(PB5_RELAY_ON_OFF_CTRL_GPIO_Port, GPIO_PIN_5);
-	  HAL_Delay(2000);
+//	  HAL_GPIO_TogglePin(PB5_RELAY_ON_OFF_CTRL_GPIO_Port, GPIO_PIN_5);
+//	  HAL_Delay(2000);
+	  if(getCurrentTemper() > 50 && getHeaterState() == t_ON) {
+		  heaterControll(t_OFF);
+	  } else if(getCurrentTemper() < 45 && getHeaterState() == t_OFF) {
+		  heaterControll(t_ON);
+	  }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
